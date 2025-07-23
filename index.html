@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lab Inventory Portal</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #0d1b2a, #1b263b);
+      color: #ffffff;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 40px;
+      text-align: center;
+      animation: slideDown 1s ease;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+    }
+
+    button {
+      padding: 16px 42px;
+      font-size: 1.2rem;
+      background: #f1faee;
+      color: #0d1b2a;
+      border: none;
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.08);
+      background: #a8dadc;
+      box-shadow: 0 0 15px #a8dadc88;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.85rem;
+      color: #cfd8dc;
+      opacity: 0.8;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .button-group {
+      display: flex;
+      gap: 24px; /* Space between buttons */
+      margin-bottom: 32px;
+    }
+
+    button {
+      padding: 16px 42px;
+      font-size: 1.2rem;
+      background: #f1faee;
+      color: #0d1b2a;
+      border: none;
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔬 Lab Inventory Dashboard</h1>
+  <div class="button-group">
+    <button onclick="location.href='https://app.powerbi.com/view?r=your-dashboard-url'">
+      Check Inventory
+    </button>
+    <button onclick="location.href='edit.html'">
+      Edit Inventory
+    </button>
+  </div>
+  <div class="footer">Powered by Google Sheets & Power BI</div>
+</body>
+</html>

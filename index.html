@@ -2,8 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Lab Inventory Portal</title>
+  <title>NITW Lab Inventory Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --nitw-primary: #0a2463;       /* Deep blue - primary color */
+      --nitw-secondary: #3e92cc;     /* Lighter blue - secondary */
+      --nitw-dark: #1a1a2e;          /* Dark background */
+      --nitw-light: #e2f3f8;         /* Light text/background */
+      --button-gradient: linear-gradient(135deg, var(--nitw-secondary), var(--nitw-primary));
+    }
+    
     * {
       margin: 0;
       padding: 0;
@@ -11,101 +20,290 @@
     }
 
     body {
-      height: 100vh;
-      background: linear-gradient(135deg, #0d1b2a, #1b263b);
-      color: #ffffff;
-      font-family: 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--nitw-dark), var(--nitw-primary));
+      color: var(--nitw-light);
+      font-family: 'Poppins', sans-serif;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      animation: fadeIn 1.5s ease-in-out;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(62, 146, 204, 0.15) 0%, transparent 40%),
+        url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjAzKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNwYXR0ZXJuKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==');
+      opacity: 0.6;
+      z-index: -1;
     }
 
     h1 {
-      font-size: 3rem;
-      margin-bottom: 40px;
+      font-size: 3.2rem;
+      margin-bottom: 20px;
       text-align: center;
-      animation: slideDown 1s ease;
-      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      position: relative;
+      padding-bottom: 15px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s forwards 0.3s;
+    }
+
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--nitw-secondary), transparent);
+      border-radius: 2px;
+    }
+
+    .logo {
+      width: 80px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+      opacity: 0;
+      animation: fadeIn 0.8s forwards 0.5s;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+      color: rgba(226, 243, 248, 0.8);
+      font-weight: 300;
+      opacity: 0;
+      animation: fadeIn 1s forwards 0.8s;
+    }
+
+    .button-container {
+      position: relative;
+      height: 200px;
+      width: 100%;
+      max-width: 800px;
+      margin: 40px auto;
+      perspective: 1000px;
+    }
+
+    .button-group {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 30px;
+      opacity: 0;
+      transform: translateX(-50%) translateY(50px) rotateX(-30deg);
+      animation: buttonEntrance 1.2s forwards 1s;
     }
 
     button {
-      padding: 16px 42px;
+      padding: 18px 48px;
       font-size: 1.2rem;
-      background: #f1faee;
-      color: #0d1b2a;
+      font-weight: 600;
+      background: var(--button-gradient);
+      color: var(--nitw-light);
       border: none;
-      border-radius: 14px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(62, 146, 204, 0.3),
+                  0 4px 12px rgba(0, 0, 0, 0.2),
+                  inset 0 2px 4px rgba(255, 255, 255, 0.2);
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(226, 243, 248, 0.2);
+    }
+
+    button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+      transition: 0.5s;
     }
 
     button:hover {
-      transform: scale(1.08);
-      background: #a8dadc;
-      box-shadow: 0 0 15px #a8dadc88;
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 12px 28px rgba(62, 146, 204, 0.4),
+                  0 6px 16px rgba(0, 0, 0, 0.25),
+                  inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    }
+
+    button:hover::before {
+      left: 100%;
+    }
+
+    button:active {
+      transform: translateY(0) scale(0.98);
     }
 
     .footer {
-      position: absolute;
+      position: fixed;
       bottom: 20px;
-      font-size: 0.85rem;
-      color: #cfd8dc;
-      opacity: 0.8;
+      font-size: 0.9rem;
+      color: rgba(226, 243, 248, 0.7);
+      text-align: center;
+      width: 100%;
+      opacity: 0;
+      animation: fadeIn 1s forwards 1.5s;
+    }
+
+    .footer span {
+      color: var(--nitw-secondary);
+      font-weight: 600;
+    }
+
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      background: rgba(226, 243, 248, 0.4);
+      border-radius: 50%;
+      animation: float linear infinite;
     }
 
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: scale(0.98);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
-    @keyframes slideDown {
-      from {
+    @keyframes fadeInUp {
+      from { 
         opacity: 0;
-        transform: translateY(-40px);
+        transform: translateY(30px);
       }
-      to {
+      to { 
         opacity: 1;
         transform: translateY(0);
       }
     }
-    .button-group {
-      display: flex;
-      gap: 24px; /* Space between buttons */
-      margin-bottom: 32px;
+
+    @keyframes buttonEntrance {
+      from { 
+        opacity: 0;
+        transform: translateX(-50%) translateY(50px) rotateX(-30deg);
+      }
+      to { 
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) rotateX(0);
+      }
     }
 
-    button {
-      padding: 16px 42px;
-      font-size: 1.2rem;
-      background: #f1faee;
-      color: #0d1b2a;
-      border: none;
-      border-radius: 14px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
-      cursor: pointer;
-      transition: all 0.3s ease;
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+      
+      .button-group {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      button {
+        padding: 16px 36px;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>🔬 Lab Inventory Dashboard</h1>
-  <div class="button-group">
-    <button onclick="location.href='https://app.powerbi.com/view?r=your-dashboard-url'">
-      Check Inventory
-    </button>
-    <button onclick="location.href='edit.html'">
-      Edit Inventory
-    </button>
+  <img src="https://upload.wikimedia.org/wikipedia/en/thumb/6/6d/National_Institute_of_Technology%2C_Warangal_Logo.svg/1200px-National_Institute_of_Technology%2C_Warangal_Logo.svg.png" alt="NIT Warangal Logo" class="logo">
+  <h1>Lab Inventory Dashboard</h1>
+  <p class="subtitle">National Institute of Technology, Warangal</p>
+  
+  <div class="button-container">
+    <div class="button-group">
+      <button onclick="location.href='https://app.powerbi.com/view?r=your-dashboard-url'">
+        Check Inventory
+      </button>
+      <button onclick="location.href='edit.html'">
+        Edit Inventory
+      </button>
+    </div>
   </div>
-  <div class="footer">Powered by Google Sheets & Power BI</div>
+  
+  <div class="footer">Powered by <span>Google Sheets</span> & <span>Power BI</span> | NIT Warangal</div>
+  
+  <div class="particles" id="particles"></div>
+
+  <script>
+    // Create floating particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 30;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Random size between 2px and 6px
+        const size = Math.random() * 4 + 2;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Random position
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        
+        // Random animation duration and delay
+        const duration = Math.random() * 20 + 10;
+        const delay = Math.random() * 5;
+        particle.style.animation = `float ${duration}s linear ${delay}s infinite`;
+        
+        // Random opacity
+        particle.style.opacity = Math.random() * 0.6 + 0.2;
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
+    
+    // Initialize particles when page loads
+    window.addEventListener('load', createParticles);
+    
+    // Add scroll-triggered animation for buttons
+    window.addEventListener('scroll', function() {
+      const buttonGroup = document.querySelector('.button-group');
+      const scrollPosition = window.scrollY;
+      
+      if (scrollPosition > 50 && !buttonGroup.classList.contains('animated')) {
+        buttonGroup.classList.add('animated');
+        buttonGroup.style.animation = 'buttonEntrance 1.2s forwards';
+      }
+    });
+  </script>
 </body>
 </html>
